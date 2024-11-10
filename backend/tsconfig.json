@@ -5,7 +5,19 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "baseUrl": "./src",
+    "paths": {
+      "appService/*": ["appService/*"],
+      "domain/*": ["domain/*"],
+      "infrastructure/*": ["infrastructure/*"],
+      "interface/*": ["interface/*"],
+      "types/*": ["types/*"],
+    },
   },
   "include": ["*"],
   "exclude": ["node_modules"]
