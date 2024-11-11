@@ -12,5 +12,5 @@ const presistence = Presistence()
 const apiPort = 3000;
 const webSocketPort = 3001
 
-ApiServer({ app, port: apiPort })
-WebSocketServer({ port: webSocketPort })
+ApiServer({ app, port: apiPort, presistence })
+WebSocketServer({ port: webSocketPort, presistence })
