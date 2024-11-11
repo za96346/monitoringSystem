@@ -1,10 +1,10 @@
 import express from 'express';
 
-import ApiServer from "interface/restfulApi/index"
+import ApiServer from "./interface/restfulApi/index"
 import WebSocketServer from "./interface/webSocket/index"
 
 // 基礎設施層
-import Presistence from "infrastructure/presistence/index"
+import Presistence from "./infrastructure/presistence/index"
 
 const app = express();
 const presistence = Presistence()

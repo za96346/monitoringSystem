@@ -6,14 +6,18 @@ import DeviceController from './controller/Device';
 import { Repository } from 'types/Repository';
 
 const index = ({ app, port, presistence }: { app: Express, port: number, presistence?: Repository.Instance }): void => {
-    app.get('/entry/login', EntryController.login);
+    const deviceController = new DeviceController({ deviceRepo: presistence.Device })
+    const entryController = new EntryController({ userRepo: presistence.User })
+
+    // 登入
+    app.get('/entry/login', entryController.login);
 
     // 裝置
-    app.get('/device', DeviceController.get);
-    app.put('/device', DeviceController.add);
-    app.post('/device', DeviceController.update);
-    app.delete('/device', DeviceController.delete);
-    app.get("/device", DeviceController.dataReceive)
+    app.get('/device', deviceController.get);
+    app.put('/device', deviceController.add);
+    app.post('/device', deviceController.update);
+    app.delete('/device', deviceController.delete);
+    app.get("/device", deviceController.dataReceive)
 
     const apiServer = createServer(app);
     apiServer.listen(port, () => {

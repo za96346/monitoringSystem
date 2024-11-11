@@ -1,9 +1,16 @@
 import { Request, Response } from 'express';
+import { Repository } from 'types/Repository';
 
 /**
  * @description 裝置控制器
 */
 class Device {
+    private deviceRepo: Repository.Device
+
+    constructor({ deviceRepo }: { deviceRepo: Repository.Device }) {
+        this.deviceRepo = deviceRepo
+    }
+
     /**
      * @description 取得裝置
     */
@@ -36,4 +43,4 @@ class Device {
     }
 }
 
-export default new Device()
+export default Device
