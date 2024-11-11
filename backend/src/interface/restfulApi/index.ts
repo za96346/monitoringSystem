@@ -18,23 +18,21 @@ const index = ({
     appService?: AppService.Instance
 }): void => {
     const deviceController = new DeviceController({
-        deviceRepo: presistence.Device,
         deviceApp: appService.DeviceApp
     })
     const entryController = new EntryController({
-        userRepo: presistence.User,
         entryApp: appService.EntryApp
     })
 
     // 登入
-    app.get('/entry/login', entryController.login);
+    app.get('/entry/login', entryController.login.bind(entryController));
 
     // 裝置
-    app.get('/device', deviceController.get);
-    app.put('/device', deviceController.add);
-    app.post('/device', deviceController.update);
-    app.delete('/device', deviceController.delete);
-    app.get("/device/upload", deviceController.dataReceive)
+    app.get('/device', deviceController.get.bind(deviceController));
+    app.put('/device', deviceController.add.bind(deviceController));
+    app.post('/device', deviceController.update.bind(deviceController));
+    app.delete('/device', deviceController.delete.bind(deviceController));
+    app.get("/device/upload", deviceController.dataReceive.bind(deviceController))
 
     const apiServer = createServer(app);
     apiServer.listen(port, () => {

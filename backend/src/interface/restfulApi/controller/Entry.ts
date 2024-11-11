@@ -6,11 +6,9 @@ import { Repository } from 'types/Repository';
  * @description 入口控制器
 */
 class Entry {
-    private userRepo: Repository.User
     private entryApp: AppService.EntryApp
 
-    constructor ({ userRepo, entryApp }: { userRepo: Repository.User, entryApp: AppService.EntryApp }) {
-        this.userRepo = userRepo
+    constructor ({ entryApp }: { entryApp: AppService.EntryApp }) {
         this.entryApp = entryApp
     }
 

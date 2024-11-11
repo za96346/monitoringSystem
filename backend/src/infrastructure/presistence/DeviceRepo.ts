@@ -2,8 +2,8 @@ import DevicePo from "domain/po/DevicePo";
 import { Repository } from "types/Repository";
 
 class DeviceRepo implements Repository.Device {
-    get(): DevicePo {
-        throw new Error("Method not implemented.");
+    getDevices(): DevicePo[] {
+        return []
     }
     update(): DevicePo {
         throw new Error("Method not implemented.");

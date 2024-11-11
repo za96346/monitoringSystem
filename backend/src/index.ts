@@ -14,7 +14,7 @@ import Presistence from "./infrastructure/presistence/index"
 const app = express();
 const presistence = Presistence()
 const appServiceInstance = {
-    DeviceApp: new DeviceApp(),
+    DeviceApp: new DeviceApp({ deviceRepo: presistence.Device }),
     DataMonitorApp: new DataMonitorApp(),
     EntryApp: new EntryApp()
 }

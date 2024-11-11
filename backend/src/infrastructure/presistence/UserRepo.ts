@@ -2,7 +2,7 @@ import UserPo from "domain/po/UserPo";
 import { Repository } from "types/Repository";
 
 class UserRepo implements Repository.User {
-    get(): UserPo {
+    getUser(): UserPo {
         throw new Error("Method not implemented.");
     }
     update(): UserPo {

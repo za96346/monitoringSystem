@@ -1,16 +1,13 @@
 import { Request, Response } from 'express';
 import { AppService } from 'types/AppService';
-import { Repository } from 'types/Repository';
 
 /**
  * @description 裝置控制器
 */
 class Device {
-    private deviceRepo: Repository.Device
     private deviceApp: AppService.DeviceApp
 
-    constructor({ deviceRepo, deviceApp }: { deviceRepo: Repository.Device, deviceApp: AppService.DeviceApp }) {
-        this.deviceRepo = deviceRepo
+    constructor({ deviceApp }: { deviceApp: AppService.DeviceApp }) {
         this.deviceApp = deviceApp
     }
 
@@ -18,6 +15,10 @@ class Device {
      * @description 取得裝置
     */
     get(req: Request, res: Response): void {
+        const appResult = this.deviceApp.get({})
+        res.json({
+            data: appResult
+        })
     }
 
     /**
