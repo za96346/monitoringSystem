@@ -3,13 +3,13 @@ import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 @Entity()
 class DeviceEntity {
     @PrimaryGeneratedColumn()
-    id: number;
+    id: number = 0;
 
     @Column()
-    name: string;
+    name: string = "";
 
     @Column()
-    email: string;
+    email: string = "";
 }
 
 export default DeviceEntity
