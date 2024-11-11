@@ -1,4 +1,5 @@
 import express from 'express';
+import { config } from 'dotenv';
 
 import ApiServer from "./interface/restfulApi/index"
 import WebSocketServer from "./interface/webSocket/index"
@@ -17,9 +18,15 @@ import DevicePo from "./domain/po/DevicePo"
 import DeviceDataPo from "./domain/po/DeviceDataPo"
 import DeviceDomainService from './domain/service/DeviceDomainService';
 
+config()
 const app = express();
 const presistence = Presistence({
     type: "mysql",
+    host: process.env.DB_HOST,
+    port: parseInt(process.env.DB_PORT),
+    username: process.env.DB_USER_NAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_TABLE,
     logging: ['error', 'query', 'schema'],
     entities: [DevicePo, UserPo, DeviceDataPo]
 })
