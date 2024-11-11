@@ -56,7 +56,7 @@ declare namespace AppService {
          * 
          * @returns 裝置list
         */
-        get(params: AppServiceParams.DeviceApp["getParams"]): DeviceEntity[]
+        async get(params: AppServiceParams.DeviceApp["getParams"]): Promise<DeviceEntity[]>
 
         /**
          * @description 刪除裝置

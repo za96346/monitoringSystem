@@ -3,18 +3,15 @@ import { createServer } from 'http';
 
 import EntryController from './controller/Entry';
 import DeviceController from './controller/Device';
-import { Repository } from 'types/Repository';
 import { AppService } from 'types/AppService';
 
 const index = ({
     app,
     port,
-    presistence,
     appService
 }: {
     app: Express,
     port: number,
-    presistence?: Repository.Instance,
     appService?: AppService.Instance
 }): void => {
     const deviceController = new DeviceController({

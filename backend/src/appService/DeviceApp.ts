@@ -1,16 +1,26 @@
 import DeviceEntity from "domain/entity/DeviceEntity";
 import { AppService } from "types/AppService";
 import { Repository } from "types/Repository";
+import { domainService } from "types/domainService";
 
 class DeviceApp implements AppService.DeviceApp {
     private deviceRepo: Repository.Device
+    private deviceDomainService: domainService.DeviceDomainService
 
-    constructor({ deviceRepo }: { deviceRepo: Repository.Device }) {
+    constructor({
+        deviceRepo,
+        deviceDomainService
+    }: {
+        deviceRepo: Repository.Device,
+        deviceDomainService: domainService.DeviceDomainService
+    }) {
         this.deviceRepo = deviceRepo
+        this.deviceDomainService = deviceDomainService
     }
 
-    get(): DeviceEntity[] {
-        return this.deviceRepo.getDevices()
+    async get(): Promise<DeviceEntity[]> {
+        const result = await this.deviceRepo.getDevices()
+        return result.map((item) => this.deviceDomainService.toDomainEntity(item))
     }
     delete(): boolean {
         throw new Error("Method not implemented.");

@@ -1,15 +1,37 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-
-@Entity()
 class DeviceEntity {
-    @PrimaryGeneratedColumn()
-    id: number = 0;
+    id: number;
+    deviceName: string;
+    sort: number
+    isDeleted: number
+    isStopped: number
+    updateTime: Date;
+    createTime: Date;
 
-    @Column()
-    name: string = "";
-
-    @Column()
-    email: string = "";
+    constructor({
+        id,
+        deviceName,
+        sort,
+        isDeleted,
+        isStopped,
+        updateTime,
+        createTime
+    }: {
+        id: number
+        deviceName: string
+        sort: number
+        isDeleted: number
+        isStopped: number
+        updateTime: Date
+        createTime: Date
+    }) {
+        this.id = id
+        this.deviceName = deviceName
+        this.sort = sort
+        this.isDeleted = isDeleted
+        this.isStopped = isStopped
+        this.updateTime = updateTime
+        this.createTime = createTime
+    }
 }
 
 export default DeviceEntity

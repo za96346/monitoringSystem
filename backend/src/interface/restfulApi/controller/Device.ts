@@ -14,8 +14,8 @@ class Device {
     /**
      * @description 取得裝置
     */
-    get(req: Request, res: Response): void {
-        const appResult = this.deviceApp.get({})
+    async get(req: Request, res: Response): Promise<void> {
+        const appResult = await this.deviceApp.get({})
         res.json({
             data: appResult
         })

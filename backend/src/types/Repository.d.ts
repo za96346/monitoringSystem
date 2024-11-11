@@ -14,10 +14,10 @@ declare namespace Repository {
      * @description 裝置repo
     */
     interface Device {
-        getDevices(): DevicePo[]
-        update(): DevicePo
-        add(): DevicePo
-        delete(): DevicePo
+        async getDevices(): Promise<DevicePo[]>
+        async update(deviceData: DevicePo): Promise<DevicePo>
+        async add(deviceData: DevicePo): Promise<DevicePo>
+        async delete(deviceData: DevicePo): Promise<void>
     }
 
     /**
