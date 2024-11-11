@@ -1,4 +1,4 @@
-import { Request, Response, Express } from 'express';
+import { Express } from 'express';
 import { createServer } from 'http';
 
 import EntryController from './controller/Entry';
@@ -17,7 +17,7 @@ const index = ({ app, port, presistence }: { app: Express, port: number, presist
     app.put('/device', deviceController.add);
     app.post('/device', deviceController.update);
     app.delete('/device', deviceController.delete);
-    app.get("/device", deviceController.dataReceive)
+    app.get("/device/upload", deviceController.dataReceive)
 
     const apiServer = createServer(app);
     apiServer.listen(port, () => {
