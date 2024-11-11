@@ -1,4 +1,24 @@
 import DeviceEntity from "domain/entity/DeviceEntity"
+
+/**
+ * @description app service layer params
+*/
+declare namespace AppServiceParams {
+    interface EntryAPP {
+        loginParams: {
+            account: string,
+            password: string
+        }
+    }
+    interface DeviceApp {
+        getParams: {}
+        deleteParams: {}
+        updateParams: {}
+        addParams: {}
+        dataReceiveParams: {}
+    }
+}
+
 /**
  * @description app service layer interface
 */
@@ -12,7 +32,7 @@ declare namespace AppService {
          * 
          * @returns JWT token
         */
-        login(): string
+        login({ account, password }: AppServiceParams.EntryAPP["loginParams"]): string
     }
 
     /**
@@ -24,34 +44,34 @@ declare namespace AppService {
          * 
          * @returns 裝置list
         */
-        get(): DeviceEntity[]
+        get(params: AppServiceParams.DeviceApp["getParams"]): DeviceEntity[]
 
         /**
          * @description 刪除裝置
          * 
          * @returns 是否刪除成功
         */
-        delete(): boolean
+        delete(params: AppServiceParams.DeviceApp["deleteParams"]): boolean
 
         /**
          * @description 更新裝置
          * 
          * @returns 是否更新成功
         */
-        update(): boolean
+        update(params: AppServiceParams.DeviceApp["updateParams"]): boolean
 
         /**
          * @description 新增裝置
          * 
          * @returns 是否新增成功
         */
-        add(): boolean
+        add(params: AppServiceParams.DeviceApp["addParams"]): boolean
 
         /**
          * @description 資料收集 from esp32
          * 
          * @returns
         */
-        dataReceive(): void
+        dataReceive(params: AppServiceParams.DeviceApp["dataReceiveParams"]): void
     }
 }

@@ -3,8 +3,9 @@ import { createServer } from 'http';
 
 import EntryController from './controller/Entry';
 import DeviceController from './controller/Device';
+import { Repository } from 'types/Repository';
 
-const index = ({ app, port }: { app: Express, port: number }): void => {
+const index = ({ app, port, presistence }: { app: Express, port: number, presistence: Repository.Instance }): void => {
     app.get('/entry/login', EntryController.login);
 
     // 裝置

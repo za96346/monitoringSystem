@@ -1,6 +1,7 @@
+import { Repository } from 'types/Repository';
 import { WebSocketServer } from 'ws';
 
-const index = ({ port }: { port: number }): void => {
+const index = ({ port, presistence }: { port: number, presistence: Repository.Instance }): void => {
     // 建立並啟動 WebSocket Server 在另一個埠號
     const wss = new WebSocketServer({ port });
 

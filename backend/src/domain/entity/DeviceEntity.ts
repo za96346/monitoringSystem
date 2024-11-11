@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity()
-export class DeviceEntity {
+class DeviceEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -11,3 +11,5 @@ export class DeviceEntity {
     @Column()
     email: string;
 }
+
+export default DeviceEntity
