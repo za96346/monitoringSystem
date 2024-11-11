@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { AppService } from 'types/AppService';
 import { Repository } from 'types/Repository';
 
 /**
@@ -6,9 +7,11 @@ import { Repository } from 'types/Repository';
 */
 class Device {
     private deviceRepo: Repository.Device
+    private deviceApp: AppService.DeviceApp
 
-    constructor({ deviceRepo }: { deviceRepo: Repository.Device }) {
+    constructor({ deviceRepo, deviceApp }: { deviceRepo: Repository.Device, deviceApp: AppService.DeviceApp }) {
         this.deviceRepo = deviceRepo
+        this.deviceApp = deviceApp
     }
 
     /**

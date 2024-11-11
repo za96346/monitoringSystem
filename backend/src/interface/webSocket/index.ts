@@ -1,7 +1,12 @@
+import { AppService } from 'types/AppService';
 import { Repository } from 'types/Repository';
 import { WebSocketServer } from 'ws';
 
-const index = ({ port, presistence }: { port: number, presistence?: Repository.Instance }): void => {
+const index = ({ port, presistence, appService }: {
+    port: number,
+    presistence?: Repository.Instance,
+    appService?: AppService.Instance
+}): void => {
     // 建立並啟動 WebSocket Server 在另一個埠號
     const wss = new WebSocketServer({ port });
 

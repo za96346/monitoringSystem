@@ -23,6 +23,18 @@ declare namespace AppServiceParams {
  * @description app service layer interface
 */
 declare namespace AppService {
+    interface Instance {
+        EntryApp: EntryApp
+        DeviceApp: DeviceApp
+        DataMonitorApp: DataMonitorApp
+    }
+
+    /**
+     * @description 資料監控app
+    */
+   interface DataMonitorApp {
+   }
+
     /**
      * @description 入口app
     */

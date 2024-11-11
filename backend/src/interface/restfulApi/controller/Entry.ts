@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { AppService } from 'types/AppService';
 import { Repository } from 'types/Repository';
 
 /**
@@ -6,9 +7,11 @@ import { Repository } from 'types/Repository';
 */
 class Entry {
     private userRepo: Repository.User
+    private entryApp: AppService.EntryApp
 
-    constructor ({ userRepo }: { userRepo: Repository.User }) {
+    constructor ({ userRepo, entryApp }: { userRepo: Repository.User, entryApp: AppService.EntryApp }) {
         this.userRepo = userRepo
+        this.entryApp = entryApp
     }
 
     /**
