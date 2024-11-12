@@ -11,7 +11,9 @@ class DeviceRepo implements Repository.Device {
     }
 
     async getDevices(): Promise<DevicePo[]> {
-        return await this.ormRepository.find();
+        return await this.ormRepository.find({
+            where: { is_deleted: 0 }
+        });
     }
 
     async getDeviceById(deviceData: DevicePo): Promise<DevicePo | null> {
@@ -30,14 +32,20 @@ class DeviceRepo implements Repository.Device {
             return null
         }
         Object.assign(device, deviceData);
+        device.is_deleted = 0
         return await this.ormRepository.save(device);
     }
 
     async delete(deviceData: DevicePo): Promise<boolean> {
-        const result = await this.ormRepository.delete(deviceData.id);
-        if (result.affected === 0) {
-            return false
+        const device = await this.getDeviceById(deviceData);
+        if (!device) {
+            return true
         }
+
+        Object.assign(device, deviceData);
+        device.is_deleted = 1
+
+        await this.ormRepository.save(device);
         return true
     }
 }

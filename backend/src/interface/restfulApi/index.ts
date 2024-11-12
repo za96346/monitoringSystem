@@ -1,4 +1,4 @@
-import { Express } from 'express';
+import express from 'express';
 import { createServer } from 'http';
 
 import EntryController from './controller/Entry';
@@ -6,11 +6,9 @@ import DeviceController from './controller/Device';
 import { AppService } from 'types/AppService';
 
 const index = ({
-    app,
     port,
     appService
 }: {
-    app: Express,
     port: number,
     appService?: AppService.Instance
 }): void => {
@@ -20,6 +18,11 @@ const index = ({
     const entryController = new EntryController({
         entryApp: appService.EntryApp
     })
+
+    const app = express();
+
+    // middle ware
+    app.use(express.json())
 
     // 登入
     app.get('/entry/login', entryController.login.bind(entryController));

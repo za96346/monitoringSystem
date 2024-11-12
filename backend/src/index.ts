@@ -1,4 +1,3 @@
-import express from 'express';
 import { config } from 'dotenv';
 
 import ApiServer from "./interface/restfulApi/index"
@@ -19,7 +18,7 @@ import DeviceDataPo from "./domain/po/DeviceDataPo"
 import DeviceDomainService from './domain/service/DeviceDomainService';
 
 config()
-const app = express();
+
 const presistence = Presistence({
     type: "mysql",
     host: process.env.DB_HOST,
@@ -43,7 +42,6 @@ const apiPort = 3000;
 const webSocketPort = 3001
 
 ApiServer({
-    app,
     port: apiPort,
     appService: appServiceInstance
 })

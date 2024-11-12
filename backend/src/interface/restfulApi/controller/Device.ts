@@ -28,7 +28,15 @@ class Device {
      * @description 刪除裝置
     */
     async delete(req: Request, res: Response): Promise<void> {
-        const dbResult = await this.deviceApp.delete(new DeviceEntity({ id: 0 }))
+        const data: DeviceEntity = req.body;
+        if (Object.keys(data)?.length === 0) {
+            res.statusCode = 401
+            res.json({
+                errorMessage: "",
+            })
+            return
+        }
+        const dbResult = await this.deviceApp.delete(data)
 
         res.json({
             errorMessage: "",
@@ -40,7 +48,16 @@ class Device {
      * @description 更新裝置
     */
     async update(req: Request, res: Response): Promise<void> {
-        const dbResult = await this.deviceApp.update(new DeviceEntity({ id: 0 }))
+        const data: DeviceEntity = req.body;
+        console.log(data)
+        if (Object.keys(data)?.length === 0) {
+            res.statusCode = 401
+            res.json({
+                errorMessage: "",
+            })
+            return
+        }
+        const dbResult = await this.deviceApp.update(data)
 
         res.json({
             errorMessage: "",
@@ -52,11 +69,19 @@ class Device {
      * @description 新增裝置
     */
     async add(req: Request, res: Response): Promise<void> {
-        const dbResult = await this.deviceApp.add(new DeviceEntity({ id: 0 }))
+        const data: DeviceEntity = req.body;
+        if (Object.keys(data)?.length === 0) {
+            res.statusCode = 401
+            res.json({
+                errorMessage: "",
+            })
+            return
+        }
+        const dbResult = await this.deviceApp.add(data)
 
         res.json({
             errorMessage: "",
-            errorStatus: dbResult
+            data: dbResult
         })
     }
 

@@ -20,6 +20,10 @@ class DeviceDomainService implements domainService.DeviceDomainService {
     toPersistenceObject(device: DeviceEntity): DevicePo {
         const devicePo = new DevicePo();
         devicePo.id = device?.id;
+        devicePo.device_name = device?.deviceName || ""
+        devicePo.sort = device?.sort || 0
+        devicePo.is_deleted = device?.isDeleted || 0
+        devicePo.is_stopped = device?.isStopped || 0
         return devicePo;
     }
 }
