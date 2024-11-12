@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import DeviceEntity from '../../../domain/entity/DeviceEntity';
 import { AppService } from 'types/AppService';
 
 /**
@@ -17,26 +18,46 @@ class Device {
     async get(req: Request, res: Response): Promise<void> {
         const appResult = await this.deviceApp.get({})
         res.json({
-            data: appResult
+            data: appResult,
+            errorMessage: "",
+            errorStatus: true
         })
     }
 
     /**
      * @description 刪除裝置
     */
-    delete(req: Request, res: Response): void {
+    async delete(req: Request, res: Response): Promise<void> {
+        const dbResult = await this.deviceApp.delete(new DeviceEntity({ id: 0 }))
+
+        res.json({
+            errorMessage: "",
+            errorStatus: dbResult
+        })
     }
 
     /**
      * @description 更新裝置
     */
-    update(req: Request, res: Response): void {
+    async update(req: Request, res: Response): Promise<void> {
+        const dbResult = await this.deviceApp.update(new DeviceEntity({ id: 0 }))
+
+        res.json({
+            errorMessage: "",
+            errorStatus: dbResult
+        })
     }
 
     /**
      * @description 新增裝置
     */
-    add(req: Request, res: Response): void {
+    async add(req: Request, res: Response): Promise<void> {
+        const dbResult = await this.deviceApp.add(new DeviceEntity({ id: 0 }))
+
+        res.json({
+            errorMessage: "",
+            errorStatus: dbResult
+        })
     }
 
     /**

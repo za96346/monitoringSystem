@@ -15,9 +15,9 @@ declare namespace Repository {
     */
     interface Device {
         async getDevices(): Promise<DevicePo[]>
-        async update(deviceData: DevicePo): Promise<DevicePo>
+        async update(deviceData: DevicePo): Promise<DevicePo | null>
         async add(deviceData: DevicePo): Promise<DevicePo>
-        async delete(deviceData: DevicePo): Promise<void>
+        async delete(deviceData: DevicePo): Promise<boolean>
     }
 
     /**

@@ -22,14 +22,19 @@ class DeviceApp implements AppService.DeviceApp {
         const result = await this.deviceRepo.getDevices()
         return result.map((item) => this.deviceDomainService.toDomainEntity(item))
     }
-    delete(): boolean {
-        throw new Error("Method not implemented.");
+    async delete(deviceEntity: DeviceEntity): Promise<boolean> {
+        const devicePo = this.deviceDomainService.toPersistenceObject(deviceEntity)
+        return await this.deviceRepo.delete(devicePo)
     }
-    update(): boolean {
-        throw new Error("Method not implemented.");
+    async update(deviceEntity: DeviceEntity): Promise<DeviceEntity> {
+        const devicePo = this.deviceDomainService.toPersistenceObject(deviceEntity)
+        const result = await this.deviceRepo.update(devicePo)
+        return this.deviceDomainService.toDomainEntity(result)
     }
-    add(): boolean {
-        throw new Error("Method not implemented.");
+    async add(deviceEntity: DeviceEntity): Promise<DeviceEntity> {
+        const devicePo = this.deviceDomainService.toPersistenceObject(deviceEntity)
+        const reuslt = await this.deviceRepo.add(devicePo)
+        return this.deviceDomainService.toDomainEntity(reuslt)
     }
     dataReceive(): void {
         throw new Error("Method not implemented.");

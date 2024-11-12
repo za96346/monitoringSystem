@@ -24,20 +24,21 @@ class DeviceRepo implements Repository.Device {
         return await this.ormRepository.save(device);
     }
 
-    async update(deviceData: DevicePo): Promise<DevicePo> {
+    async update(deviceData: DevicePo): Promise<DevicePo | null> {
         const device = await this.getDeviceById(deviceData);
         if (!device) {
-        throw new Error(`Device with id ${deviceData.id} not found.`);
+            return null
         }
         Object.assign(device, deviceData);
         return await this.ormRepository.save(device);
     }
 
-    async delete(deviceData: DevicePo): Promise<void> {
+    async delete(deviceData: DevicePo): Promise<boolean> {
         const result = await this.ormRepository.delete(deviceData.id);
         if (result.affected === 0) {
-            throw new Error(`Device with id ${deviceData.id} not found.`);
+            return false
         }
+        return true
     }
 }
 

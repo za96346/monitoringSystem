@@ -63,21 +63,21 @@ declare namespace AppService {
          * 
          * @returns 是否刪除成功
         */
-        delete(params: AppServiceParams.DeviceApp["deleteParams"]): boolean
+        async delete(deviceEntity: DeviceEntity): Promise<boolean>
 
         /**
          * @description 更新裝置
          * 
          * @returns 是否更新成功
         */
-        update(params: AppServiceParams.DeviceApp["updateParams"]): boolean
+        async update(eviceEntity: DeviceEntity): Promise<DeviceEntity>
 
         /**
          * @description 新增裝置
          * 
          * @returns 是否新增成功
         */
-        add(params: AppServiceParams.DeviceApp["addParams"]): boolean
+        async add(deviceEntity: DeviceEntity): Promise<DeviceEntity>
 
         /**
          * @description 資料收集 from esp32

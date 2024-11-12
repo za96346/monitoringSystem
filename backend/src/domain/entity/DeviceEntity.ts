@@ -17,12 +17,12 @@ class DeviceEntity {
         createTime
     }: {
         id: number
-        deviceName: string
-        sort: number
-        isDeleted: number
-        isStopped: number
-        updateTime: Date
-        createTime: Date
+        deviceName?: string
+        sort?: number
+        isDeleted?: number
+        isStopped?: number
+        updateTime?: Date
+        createTime?: Date
     }) {
         this.id = id
         this.deviceName = deviceName
