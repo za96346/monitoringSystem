@@ -41,6 +41,7 @@ const index = ({
     app.post(
         '/device',
         [
+            body('id').isInt({ min: 0 }).withMessage('id 必須是正整數'),
             body('deviceName').isString().withMessage('Name 必須是字串'),
             body('sort').isInt({ min: 0 }).withMessage('sort 必須是正整數'),
         ],
