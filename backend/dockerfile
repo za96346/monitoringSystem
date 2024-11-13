@@ -1,5 +1,5 @@
 FROM node:18.2 as build
-WORKDIR /frontend
+WORKDIR /root
 COPY . .
 
 RUN npm i
