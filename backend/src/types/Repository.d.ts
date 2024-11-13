@@ -24,9 +24,11 @@ declare namespace Repository {
      * @description 使用者repo
     */
     interface User {
-        getUser(): UserPo
-        update(): UserPo
-        add(): UserPo
-        delete(): UserPo
+        async getUsers(): Promise<UserPo[]>
+        async getUserById(userData: UserPo): Promise<UserPo | null>
+        async getUserByAccount(userData: UserPo): Promise<UserPo | null>
+        async update(userData: UserPo): Promise<UserPo | null> 
+        async add(userData: UserPo): Promise<UserPo>
+        async delete(userData: UserPo): Promise<boolean>
     }
 }

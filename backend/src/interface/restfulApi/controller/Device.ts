@@ -22,7 +22,7 @@ class Device extends BaseController {
         res.json({
             data: appResult,
             errorMessage: "",
-            errorStatus: true
+            errorStatus: true,
         })
     }
 
@@ -33,11 +33,11 @@ class Device extends BaseController {
         const validateResult = this.hasBodyData<DeviceEntity>(req, res)
         if (!validateResult.isPass) return
 
-        const dbResult = await this.deviceApp.delete(validateResult.body)
+        const appResult = await this.deviceApp.delete(validateResult.body)
 
         res.json({
             errorMessage: "",
-            errorStatus: dbResult
+            errorStatus: appResult
         })
     }
 
@@ -48,11 +48,11 @@ class Device extends BaseController {
         const validateResult = this.hasBodyData<DeviceEntity>(req, res)
         if (!validateResult.isPass) return
 
-        const dbResult = await this.deviceApp.update(validateResult.body)
+        const appResult = await this.deviceApp.update(validateResult.body)
 
         res.json({
             errorMessage: "",
-            errorStatus: dbResult
+            errorStatus: appResult
         })
     }
 
@@ -63,11 +63,11 @@ class Device extends BaseController {
         const validateResult = this.hasBodyData<DeviceEntity>(req, res)
         if (!validateResult.isPass) return
 
-        const dbResult = await this.deviceApp.add(validateResult.body)
+        const appResult = await this.deviceApp.add(validateResult.body)
 
         res.json({
             errorMessage: "",
-            data: dbResult
+            data: appResult
         })
     }
 

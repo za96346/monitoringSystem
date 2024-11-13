@@ -6,13 +6,20 @@ import EntryController from './controller/Entry';
 import DeviceController from './controller/Device';
 import { AppService } from 'types/AppService';
 
+// middleware
+import AuthenticateToken from './middleware/AuthenticateToken';
+
 const index = ({
     port,
-    appService
+    appService,
+    jwtSecretKey
 }: {
     port: number,
+    jwtSecretKey: string
     appService?: AppService.Instance
 }): void => {
+    const authenticateToken = AuthenticateToken(jwtSecretKey)
+
     const deviceController = new DeviceController({
         deviceApp: appService.DeviceApp
     })
@@ -26,12 +33,20 @@ const index = ({
     app.use(express.json())
 
     // 登入
-    app.get('/entry/login', entryController.login.bind(entryController));
+    app.post(
+        '/entry/login',
+        [
+            body('account').isString().withMessage('account 必須是字串'),
+            body('password').isString().withMessage('password 必須是字串'),
+        ],
+        entryController.login.bind(entryController)
+    );
 
     // 裝置
-    app.get('/device', deviceController.get.bind(deviceController));
+    app.get('/device', authenticateToken, deviceController.get.bind(deviceController));
     app.put(
         '/device',
+        authenticateToken,
         [
             body('deviceName').isString().withMessage('Name 必須是字串'),
             body('sort').isInt({ min: 0 }).withMessage('sort 必須是正整數'),
@@ -40,6 +55,7 @@ const index = ({
     );
     app.post(
         '/device',
+        authenticateToken,
         [
             body('id').isInt({ min: 0 }).withMessage('id 必須是正整數'),
             body('deviceName').isString().withMessage('Name 必須是字串'),
@@ -49,12 +65,17 @@ const index = ({
     );
     app.delete(
         '/device',
+        authenticateToken,
         [
             body('id').isInt({ min: 1 }).withMessage('is 必須是正整數'),
         ],
         deviceController.delete.bind(deviceController)
     );
-    app.get("/device/upload", deviceController.dataReceive.bind(deviceController))
+    app.get(
+        "/device/upload",
+        authenticateToken,
+        deviceController.dataReceive.bind(deviceController)
+    )
 
     const apiServer = createServer(app);
     apiServer.listen(port, () => {

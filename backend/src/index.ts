@@ -16,6 +16,7 @@ import UserPo from "./domain/po/UserPo"
 import DevicePo from "./domain/po/DevicePo"
 import DeviceDataPo from "./domain/po/DeviceDataPo"
 import DeviceDomainService from './domain/service/DeviceDomainService';
+import UserDomainService from './domain/service/UserDomainService';
 
 config()
 
@@ -35,7 +36,11 @@ const appServiceInstance = {
         deviceDomainService: new DeviceDomainService()
     }),
     DataMonitorApp: new DataMonitorApp(),
-    EntryApp: new EntryApp()
+    EntryApp: new EntryApp({
+        userRepo: presistence.User,
+        userDomainService: new UserDomainService(),
+        jwtSecretKey: process.env.JWT_SECRET_KEY
+    })
 }
 
 const apiPort = 3000;
@@ -43,7 +48,8 @@ const webSocketPort = 3001
 
 ApiServer({
     port: apiPort,
-    appService: appServiceInstance
+    appService: appServiceInstance,
+    jwtSecretKey: process.env.JWT_SECRET_KEY
 })
 WebSocketServer({
     port: webSocketPort,

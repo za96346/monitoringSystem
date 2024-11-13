@@ -8,7 +8,7 @@ const index = (option: DataSourceOptions): Repository.Instance => {
     appDataSource.initialize()
     return {
         Device: new DeviceRepo(appDataSource),
-        User: new UserRepo()
+        User: new UserRepo(appDataSource)
     }
 }
 

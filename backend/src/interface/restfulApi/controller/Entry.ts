@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { AppService } from 'types/AppService';
 import BaseController from './BaseController'
+import UserEntity from '../../../domain/entity/UserEntity';
 
 /**
  * @description 入口控制器
@@ -16,10 +17,19 @@ class Entry extends BaseController {
     /**
      * @description 登入
     */
-    login(req: Request, res: Response) {
+    async login(req: Request, res: Response): Promise<void> {
         const validateResult = this.hasBodyData<{ account: string, password: string }>(req, res)
         if (!validateResult.isPass) return
-        res.send('Hello, TypeScript with Express!');
+        
+        const result = await this.entryApp.login(new UserEntity({
+            accout: validateResult.body?.account,
+            password: validateResult.body.password
+        }))
+
+        res.json({
+            errorMessage: "",
+            data: result
+        })
     }
 }
 

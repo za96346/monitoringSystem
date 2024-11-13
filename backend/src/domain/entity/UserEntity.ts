@@ -1,14 +1,42 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-
-@Entity()
 class UserEntity {
-    @PrimaryGeneratedColumn()
-    id: number = 0;
+    id: number;
+    userName: string;
+    accout: string;
+    password: string;
+    sort: number;
+    isDeleted: number
+    updateTime: Date;
+    createTime: Date;
 
-    @Column()
-    name: string = "";
-
-    @Column()
-    email: string = "";
+    constructor({
+        id,
+        userName,
+        accout,
+        password,
+        sort,
+        isDeleted,
+        updateTime,
+        createTime
+    }: {
+        id?: number
+        userName?: string
+        accout: string
+        password: string
+        sort?: number
+        isDeleted?: number
+        isStopped?: number
+        updateTime?: Date
+        createTime?: Date
+    }) {
+        this.id = id
+        this.userName = userName
+        this.accout = accout
+        this.password = password
+        this.sort = sort
+        this.isDeleted = isDeleted
+        this.updateTime = updateTime
+        this.createTime = createTime
+    }
 }
+
 export default UserEntity

@@ -44,7 +44,7 @@ declare namespace AppService {
          * 
          * @returns JWT token
         */
-        login({ account, password }: AppServiceParams.EntryAPP["loginParams"]): string
+        async login(userEntity: UserEntity): Promise<string | null>
     }
 
     /**
