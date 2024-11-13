@@ -1,14 +1,16 @@
 import { Request, Response } from 'express';
 import DeviceEntity from '../../../domain/entity/DeviceEntity';
 import { AppService } from 'types/AppService';
+import BaseController from './BaseController'
 
 /**
  * @description 裝置控制器
 */
-class Device {
+class Device extends BaseController {
     private deviceApp: AppService.DeviceApp
 
     constructor({ deviceApp }: { deviceApp: AppService.DeviceApp }) {
+        super()
         this.deviceApp = deviceApp
     }
 
@@ -28,15 +30,10 @@ class Device {
      * @description 刪除裝置
     */
     async delete(req: Request, res: Response): Promise<void> {
-        const data: DeviceEntity = req.body;
-        if (Object.keys(data)?.length === 0) {
-            res.statusCode = 401
-            res.json({
-                errorMessage: "",
-            })
-            return
-        }
-        const dbResult = await this.deviceApp.delete(data)
+        const validateResult = this.hasBodyData<DeviceEntity>(req, res)
+        if (!validateResult.isPass) return
+
+        const dbResult = await this.deviceApp.delete(validateResult.body)
 
         res.json({
             errorMessage: "",
@@ -48,16 +45,10 @@ class Device {
      * @description 更新裝置
     */
     async update(req: Request, res: Response): Promise<void> {
-        const data: DeviceEntity = req.body;
-        console.log(data)
-        if (Object.keys(data)?.length === 0) {
-            res.statusCode = 401
-            res.json({
-                errorMessage: "",
-            })
-            return
-        }
-        const dbResult = await this.deviceApp.update(data)
+        const validateResult = this.hasBodyData<DeviceEntity>(req, res)
+        if (!validateResult.isPass) return
+
+        const dbResult = await this.deviceApp.update(validateResult.body)
 
         res.json({
             errorMessage: "",
@@ -69,15 +60,10 @@ class Device {
      * @description 新增裝置
     */
     async add(req: Request, res: Response): Promise<void> {
-        const data: DeviceEntity = req.body;
-        if (Object.keys(data)?.length === 0) {
-            res.statusCode = 401
-            res.json({
-                errorMessage: "",
-            })
-            return
-        }
-        const dbResult = await this.deviceApp.add(data)
+        const validateResult = this.hasBodyData<DeviceEntity>(req, res)
+        if (!validateResult.isPass) return
+
+        const dbResult = await this.deviceApp.add(validateResult.body)
 
         res.json({
             errorMessage: "",

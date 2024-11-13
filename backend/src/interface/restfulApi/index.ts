@@ -1,5 +1,6 @@
 import express from 'express';
 import { createServer } from 'http';
+import { body } from 'express-validator';
 
 import EntryController from './controller/Entry';
 import DeviceController from './controller/Device';
@@ -29,9 +30,29 @@ const index = ({
 
     // 裝置
     app.get('/device', deviceController.get.bind(deviceController));
-    app.put('/device', deviceController.add.bind(deviceController));
-    app.post('/device', deviceController.update.bind(deviceController));
-    app.delete('/device', deviceController.delete.bind(deviceController));
+    app.put(
+        '/device',
+        [
+            body('deviceName').isString().withMessage('Name 必須是字串'),
+            body('sort').isInt({ min: 0 }).withMessage('sort 必須是正整數'),
+        ],
+        deviceController.add.bind(deviceController)
+    );
+    app.post(
+        '/device',
+        [
+            body('deviceName').isString().withMessage('Name 必須是字串'),
+            body('sort').isInt({ min: 0 }).withMessage('sort 必須是正整數'),
+        ],
+        deviceController.update.bind(deviceController)
+    );
+    app.delete(
+        '/device',
+        [
+            body('id').isInt({ min: 1 }).withMessage('is 必須是正整數'),
+        ],
+        deviceController.delete.bind(deviceController)
+    );
     app.get("/device/upload", deviceController.dataReceive.bind(deviceController))
 
     const apiServer = createServer(app);
