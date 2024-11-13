@@ -43,16 +43,13 @@ const appServiceInstance = {
     })
 }
 
-const apiPort = 3000;
-const webSocketPort = 3001
-
 ApiServer({
-    port: apiPort,
+    port: parseInt(process.env.API_PORT),
     appService: appServiceInstance,
     jwtSecretKey: process.env.JWT_SECRET_KEY
 })
 WebSocketServer({
-    port: webSocketPort,
+    port: parseInt(process.env.WS_PORT),
     presistence,
     appService: appServiceInstance
 })
