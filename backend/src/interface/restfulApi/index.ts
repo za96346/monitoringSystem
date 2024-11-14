@@ -73,7 +73,7 @@ const index = ({
         ],
         deviceController.delete.bind(deviceController)
     );
-    app.get(
+    app.post(
         "/backendApi/device/upload",
         authenticateToken,
         [
