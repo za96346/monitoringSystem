@@ -16,7 +16,9 @@ declare namespace AppServiceParams {
         deleteParams: {}
         updateParams: {}
         addParams: {}
-        dataReceiveParams: {}
+    }
+    interface DeviceDataApp {
+        getDeviceDatasByDeviceIds: number[]
     }
 }
 
@@ -40,6 +42,13 @@ declare namespace AppService {
          * @returns
         */
         async dataReceive(deviceDataEntity: DeviceDataEntity): Promise<boolean>
+
+        /**
+         * @description 取得裝置數據
+         * 
+         * @returns
+        */
+       async getDeviceDatasByDeviceIds(param: AppServiceParams.DeviceDataApp["getDeviceDatasByDeviceIds"]): Promise<DeviceDataEntity[]>
    }
 
     /**
