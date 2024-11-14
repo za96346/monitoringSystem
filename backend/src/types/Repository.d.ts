@@ -1,5 +1,6 @@
 import UserPo from "domain/po/UserPo"
 import DevicePo from "domain/po/DevicePo"
+import DeviceDataPo from "domain/po/DeviceDataPo"
 
 declare namespace Repository {
     /**
@@ -7,6 +8,7 @@ declare namespace Repository {
     */
     interface Instance {
         Device: Device
+        DeviceData: DeviceData
         User: User
     }
 
@@ -30,5 +32,14 @@ declare namespace Repository {
         async update(userData: UserPo): Promise<UserPo | null> 
         async add(userData: UserPo): Promise<UserPo>
         async delete(userData: UserPo): Promise<boolean>
+    }
+
+    /**
+     * @description 裝置資料repo
+    */
+    interface DeviceData {
+        async getDeviceDatas(deviceData: DeviceDataPo):Promise<DeviceDataPo[]>
+        async add(deviceData: DeviceDataPo): Promise<DeviceDataPo>
+        async delete(deviceData: DeviceDataPo): Promise<boolean>
     }
 }
