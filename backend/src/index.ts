@@ -17,6 +17,7 @@ import DevicePo from "./domain/po/DevicePo"
 import DeviceDataPo from "./domain/po/DeviceDataPo"
 import DeviceDomainService from './domain/service/DeviceDomainService';
 import UserDomainService from './domain/service/UserDomainService';
+import DeviceDataDomainService from './domain/service/DeviceDataDomainService';
 
 config()
 
@@ -33,7 +34,9 @@ const presistence = Presistence({
 const appServiceInstance = {
     DeviceApp: new DeviceApp({
         deviceRepo: presistence.Device,
-        deviceDomainService: new DeviceDomainService()
+        deviceDataRepo: presistence.DeviceData,
+        deviceDomainService: new DeviceDomainService(),
+        deviceDataDomainService: new DeviceDataDomainService()
     }),
     DataMonitorApp: new DataMonitorApp(),
     EntryApp: new EntryApp({

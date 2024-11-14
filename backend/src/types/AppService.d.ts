@@ -1,3 +1,4 @@
+import DeviceDataEntity from "domain/entity/DeviceDataEntity"
 import DeviceEntity from "domain/entity/DeviceEntity"
 
 /**
@@ -84,6 +85,6 @@ declare namespace AppService {
          * 
          * @returns
         */
-        dataReceive(params: AppServiceParams.DeviceApp["dataReceiveParams"]): void
+        async dataReceive(deviceDataEntity: DeviceDataEntity): Promise<boolean>
     }
 }

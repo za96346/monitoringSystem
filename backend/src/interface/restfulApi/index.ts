@@ -69,13 +69,17 @@ const index = ({
         '/backendApi/device',
         authenticateToken,
         [
-            body('id').isInt({ min: 1 }).withMessage('is 必須是正整數'),
+            body('id').isInt({ min: 1 }).withMessage('id 必須是正整數'),
         ],
         deviceController.delete.bind(deviceController)
     );
     app.get(
         "/backendApi/device/upload",
         authenticateToken,
+        [
+            body('deviceId').isInt({ min: 1 }).withMessage('deviceId 必須是正整數'),
+            body('data').isObject().withMessage('data 必須是object'),
+        ],
         deviceController.dataReceive.bind(deviceController)
     )
 

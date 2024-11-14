@@ -1,3 +1,4 @@
+import DeviceDataEntity from "domain/entity/DeviceDataEntity";
 import DeviceEntity from "domain/entity/DeviceEntity";
 import { AppService } from "types/AppService";
 import { Repository } from "types/Repository";
@@ -5,17 +6,25 @@ import { domainService } from "types/domainService";
 
 class DeviceApp implements AppService.DeviceApp {
     private deviceRepo: Repository.Device
+    private deviceDataRepo: Repository.DeviceData
     private deviceDomainService: domainService.DeviceDomainService
+    private deviceDataDomainService: domainService.DeviceDataDomainService
 
     constructor({
         deviceRepo,
-        deviceDomainService
+        deviceDataRepo,
+        deviceDomainService,
+        deviceDataDomainService
     }: {
         deviceRepo: Repository.Device,
-        deviceDomainService: domainService.DeviceDomainService
+        deviceDataRepo: Repository.DeviceData
+        deviceDomainService: domainService.DeviceDomainService,
+        deviceDataDomainService: domainService.DeviceDataDomainService
     }) {
         this.deviceRepo = deviceRepo
+        this.deviceDataRepo = deviceDataRepo
         this.deviceDomainService = deviceDomainService
+        this.deviceDataDomainService = deviceDataDomainService
     }
 
     async get(): Promise<DeviceEntity[]> {
@@ -36,8 +45,11 @@ class DeviceApp implements AppService.DeviceApp {
         const reuslt = await this.deviceRepo.add(devicePo)
         return this.deviceDomainService.toDomainEntity(reuslt)
     }
-    dataReceive(): void {
-        throw new Error("Method not implemented.");
+    async dataReceive(deviceDataEntity: DeviceDataEntity): Promise<boolean> {
+        const deviceDataPo = this.deviceDataDomainService.toPersistenceObject(deviceDataEntity)
+        const reuslt = await this.deviceDataRepo.add(deviceDataPo)
+
+        return Object.keys(reuslt || {})?.length > 0
     }
 
 }
