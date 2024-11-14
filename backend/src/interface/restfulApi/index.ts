@@ -4,6 +4,7 @@ import { body } from 'express-validator';
 
 import EntryController from './controller/Entry';
 import DeviceController from './controller/Device';
+import DeviceDataController from './controller/DeviceData';
 import { AppService } from 'types/AppService';
 
 // middleware
@@ -27,6 +28,9 @@ const index = ({
     })
     const entryController = new EntryController({
         entryApp: appService.EntryApp
+    })
+    const deviceDataController = new DeviceDataController({
+        deviceDataApp: appService.DeviceDataApp
     })
 
     const app = express();
@@ -73,14 +77,16 @@ const index = ({
         ],
         deviceController.delete.bind(deviceController)
     );
+
+    // 裝置資料
     app.post(
-        "/backendApi/device/upload",
+        "/backendApi/deviceData",
         authenticateToken,
         [
             body('deviceId').isInt({ min: 1 }).withMessage('deviceId 必須是正整數'),
             body('data').isObject().withMessage('data 必須是object'),
         ],
-        deviceController.dataReceive.bind(deviceController)
+        deviceDataController.dataReceive.bind(deviceDataController)
     )
 
     const apiServer = createServer(app);

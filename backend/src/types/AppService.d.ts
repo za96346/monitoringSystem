@@ -27,13 +27,19 @@ declare namespace AppService {
     interface Instance {
         EntryApp: EntryApp
         DeviceApp: DeviceApp
-        DataMonitorApp: DataMonitorApp
+        DeviceDataApp: DeviceDataApp
     }
 
     /**
      * @description 資料監控app
     */
-   interface DataMonitorApp {
+   interface DeviceDataApp {
+        /**
+         * @description 資料收集 from esp32
+         * 
+         * @returns
+        */
+        async dataReceive(deviceDataEntity: DeviceDataEntity): Promise<boolean>
    }
 
     /**
@@ -79,12 +85,5 @@ declare namespace AppService {
          * @returns 是否新增成功
         */
         async add(deviceEntity: DeviceEntity): Promise<DeviceEntity>
-
-        /**
-         * @description 資料收集 from esp32
-         * 
-         * @returns
-        */
-        async dataReceive(deviceDataEntity: DeviceDataEntity): Promise<boolean>
     }
 }

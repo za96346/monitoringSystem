@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import DeviceEntity from '../../../domain/entity/DeviceEntity';
 import { AppService } from 'types/AppService';
 import BaseController from './BaseController'
-import DeviceDataEntity from '../../../domain/entity/DeviceDataEntity';
 
 /**
  * @description 裝置控制器
@@ -65,21 +64,6 @@ class Device extends BaseController {
         if (!validateResult.isPass) return
 
         const appResult = await this.deviceApp.add(validateResult.body)
-
-        res.json({
-            errorMessage: "",
-            data: appResult
-        })
-    }
-
-    /**
-     * @description 資料收集 from esp32
-    */
-    async dataReceive(req: Request, res: Response): Promise<void> {
-        const validateResult = this.hasBodyData<DeviceDataEntity>(req, res)
-        if (!validateResult.isPass) return
-
-        const appResult = await this.deviceApp.dataReceive(validateResult.body)
 
         res.json({
             errorMessage: "",

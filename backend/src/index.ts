@@ -5,7 +5,7 @@ import WebSocketServer from "./interface/webSocket/index"
 
 // 應用層
 import DeviceApp from "./appService/DeviceApp"
-import DataMonitorApp from "./appService/DataMonitorApp"
+import DataMonitorApp from "./appService/DeviceDataApp"
 import EntryApp from "./appService/EntryApp"
 
 // 基礎設施層
@@ -18,6 +18,7 @@ import DeviceDataPo from "./domain/po/DeviceDataPo"
 import DeviceDomainService from './domain/service/DeviceDomainService';
 import UserDomainService from './domain/service/UserDomainService';
 import DeviceDataDomainService from './domain/service/DeviceDataDomainService';
+import DeviceDataApp from './appService/DeviceDataApp';
 
 config()
 
@@ -34,11 +35,12 @@ const presistence = Presistence({
 const appServiceInstance = {
     DeviceApp: new DeviceApp({
         deviceRepo: presistence.Device,
-        deviceDataRepo: presistence.DeviceData,
         deviceDomainService: new DeviceDomainService(),
+    }),
+    DeviceDataApp: new DeviceDataApp({
+        deviceDataRepo: presistence.DeviceData,
         deviceDataDomainService: new DeviceDataDomainService()
     }),
-    DataMonitorApp: new DataMonitorApp(),
     EntryApp: new EntryApp({
         userRepo: presistence.User,
         userDomainService: new UserDomainService(),
