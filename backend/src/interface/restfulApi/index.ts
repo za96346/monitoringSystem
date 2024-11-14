@@ -36,7 +36,7 @@ const index = ({
 
     // 登入
     app.post(
-        '/entry/login',
+        '/backendApi/entry/login',
         [
             body('account').isString().withMessage('account 必須是字串'),
             body('password').isString().withMessage('password 必須是字串'),
@@ -45,9 +45,9 @@ const index = ({
     );
 
     // 裝置
-    app.get('/device', authenticateToken, deviceController.get.bind(deviceController));
+    app.get('/backendApi/device', authenticateToken, deviceController.get.bind(deviceController));
     app.put(
-        '/device',
+        '/backendApi/device',
         authenticateToken,
         [
             body('deviceName').isString().withMessage('Name 必須是字串'),
@@ -56,7 +56,7 @@ const index = ({
         deviceController.add.bind(deviceController)
     );
     app.post(
-        '/device',
+        '/backendApi/device',
         authenticateToken,
         [
             body('id').isInt({ min: 0 }).withMessage('id 必須是正整數'),
@@ -66,7 +66,7 @@ const index = ({
         deviceController.update.bind(deviceController)
     );
     app.delete(
-        '/device',
+        '/backendApi/device',
         authenticateToken,
         [
             body('id').isInt({ min: 1 }).withMessage('is 必須是正整數'),
@@ -74,14 +74,14 @@ const index = ({
         deviceController.delete.bind(deviceController)
     );
     app.get(
-        "/device/upload",
+        "/backendApi/device/upload",
         authenticateToken,
         deviceController.dataReceive.bind(deviceController)
     )
 
     const apiServer = createServer(app);
     apiServer.listen(port, ip, () => {
-        console.log(`Server is running at http://${ip}:${port}`);
+        console.log(`Server is running at http://${ip}:${port}/backendApi`);
     });
 }
 
