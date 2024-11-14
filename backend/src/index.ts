@@ -44,11 +44,13 @@ const appServiceInstance = {
 }
 
 ApiServer({
+    ip: process.env.API_IP,
     port: parseInt(process.env.API_PORT),
     appService: appServiceInstance,
     jwtSecretKey: process.env.JWT_SECRET_KEY
 })
 WebSocketServer({
+    ip: process.env.WS_IP,
     port: parseInt(process.env.WS_PORT),
     presistence,
     appService: appServiceInstance

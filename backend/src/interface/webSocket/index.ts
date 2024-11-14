@@ -2,13 +2,22 @@ import { AppService } from 'types/AppService';
 import { Repository } from 'types/Repository';
 import { WebSocketServer } from 'ws';
 
-const index = ({ port, presistence, appService }: {
-    port: number,
-    presistence?: Repository.Instance,
+const index = ({
+    ip,
+    port,
+    presistence,
+    appService
+}: {
+    ip: string
+    port: number
+    presistence?: Repository.Instance
     appService?: AppService.Instance
 }): void => {
     // 建立並啟動 WebSocket Server 在另一個埠號
-    const wss = new WebSocketServer({ port });
+    const wss = new WebSocketServer({
+        port,
+        host: ip
+    });
 
     wss.on('connection', (ws) => {
         console.log('Client connected to WebSocket');
@@ -25,7 +34,7 @@ const index = ({ port, presistence, appService }: {
         });
     });
 
-    console.log(`WebSocket Server is running on ws://localhost:${port}`);
+    console.log(`WebSocket Server is running on ws://${ip}:${port}`);
 }
 
 export default index

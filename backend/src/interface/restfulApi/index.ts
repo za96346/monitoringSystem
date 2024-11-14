@@ -10,11 +10,13 @@ import { AppService } from 'types/AppService';
 import AuthenticateToken from './middleware/AuthenticateToken';
 
 const index = ({
+    ip,
     port,
     appService,
     jwtSecretKey
 }: {
-    port: number,
+    ip: string
+    port: number
     jwtSecretKey: string
     appService?: AppService.Instance
 }): void => {
@@ -78,8 +80,8 @@ const index = ({
     )
 
     const apiServer = createServer(app);
-    apiServer.listen(port, () => {
-        console.log(`Server is running at http://localhost:${port}`);
+    apiServer.listen(port, ip, () => {
+        console.log(`Server is running at http://${ip}:${port}`);
     });
 }
 
