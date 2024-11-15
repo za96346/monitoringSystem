@@ -3,7 +3,7 @@ import { Button, Input } from "antd"
 import * as React from "react"
 import { useNavigate } from "react-router-dom"
 
-const Index = () => {
+const Index = ({ userApi }: { userApi: Api.User }) => {
     const navigate = useNavigate()
     return (
         <div style={{
