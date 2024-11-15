@@ -1,6 +1,7 @@
 import express from 'express';
 import { createServer } from 'http';
 import { body } from 'express-validator';
+import cors from "cors"
 
 import EntryController from './controller/Entry';
 import DeviceController from './controller/Device';
@@ -37,6 +38,7 @@ const index = ({
 
     // middle ware
     app.use(express.json())
+    app.use(cors())
 
     // 登入
     app.post(
