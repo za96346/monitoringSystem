@@ -37,8 +37,8 @@ const index = ({
     const app = express();
 
     // middle ware
-    app.use(express.json())
     app.use(cors())
+    app.use(express.json())
 
     // 登入
     app.post(
