@@ -36,8 +36,14 @@ const index = ({
 
     const app = express();
 
+    // cors 配置
+    const corsOptions = {
+        origin: '*',
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    };
+
     // middle ware
-    app.use(cors())
+    app.use(cors(corsOptions))
     app.use(express.json())
 
     // 登入
