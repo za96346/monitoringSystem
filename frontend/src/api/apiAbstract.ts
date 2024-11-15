@@ -38,8 +38,8 @@ type axiosResponse = AxiosResponse<any, any> & { config: { id: string } }
 
 // instance
 const instance = axios.create({
-    withCredentials: true,
-    baseURL: `${window.location.origin}/workApp/`
+    // baseURL: `${window.location.origin}/backendApi/`
+    baseURL: "https://monitor.workapp.tw/backendApi"
 })
 
 const showErrorDialog = async (error): Promise<void> => {
