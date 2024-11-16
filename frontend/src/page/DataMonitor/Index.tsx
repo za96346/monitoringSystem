@@ -51,7 +51,7 @@ const Index = () => {
         const token = localStorage.getItem("token")
         const deviceId = [1,2,3,4]
         const ws = new WebSocket(
-            `ws://monitor.workapp.tw/backendSocket?token=${token}&deviceId=${deviceId.join(",")}`
+            `wss://monitor.workapp.tw/backendSocket?token=${token}&deviceId=${deviceId.join(",")}`
         )
         setSocket(ws);
 
