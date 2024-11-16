@@ -54,6 +54,10 @@ const showErrorDialog = async (error): Promise<void> => {
 instance.interceptors.request.use(
     async (config: axiosRequestConfig) => {
         config.id = v4()
+        config.headers = {
+            ...config.headers,
+            Authorization: `Bearer ${localStorage.getItem("token") || ""}`
+        }
         return config
     },
     async (error) => {

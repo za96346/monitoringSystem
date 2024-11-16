@@ -29,7 +29,7 @@ declare namespace Api {
     }
 
     interface User {
-        async login(params: ApiParams.User["login"]): Promise<boolean>
+        async login(params: ApiParams.User["login"]): Promise<string>
     }
 
     interface Device {

@@ -21,10 +21,10 @@ const Index = ({ userApi }: { userApi: Api.User }) => {
                 alignItems: "center",
                 justifyContent: "center",
                 width: "400px",
-                height: "600px"
+                height: "500px"
             }}
         >
-            <Form.Item name="account">
+            <Form.Item className="col-12" name="account">
                 <Input
                     prefix={<UserOutlined />}
                     placeholder="使用者帳號"
@@ -33,7 +33,7 @@ const Index = ({ userApi }: { userApi: Api.User }) => {
                     style={{ marginBottom: "5px",  }}
                 />
             </Form.Item>
-            <Form.Item name="password">
+            <Form.Item className="col-12" name="password">
                 <Input
                     prefix={<LockOutlined />}
                     placeholder="使用者密碼"
@@ -42,7 +42,7 @@ const Index = ({ userApi }: { userApi: Api.User }) => {
                     style={{ marginBottom: "5px" }}
                 />
             </Form.Item>
-            <Form.Item>
+            <Form.Item >
                 <Button htmlType="submit">
                         登入
                 </Button>

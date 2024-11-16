@@ -22,7 +22,9 @@ class Device extends apiAbstract implements Api.Device {
     async delete(params: ApiParams.Device["delete"]): Promise<boolean> {
         return await this.DELETE({
             data: params,
-            url: "/device"
+            url: "/device",
+            checkText: this.checkTitle.confirmDelete,
+            check_type: "warning"
         })
     }
 }

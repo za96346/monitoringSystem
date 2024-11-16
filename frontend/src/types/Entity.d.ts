@@ -18,4 +18,11 @@ declare namespace Entity {
         updateTime: Date;
         createTime: Date;
     }
+    interface DeviceData {
+        id: number;
+        deviceId: number;
+        data: Record<string, any>; // 目前定義any, 等有明確格式，在修改
+        updateTime: Date;
+        createTime: Date;
+    }
 }

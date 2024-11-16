@@ -22,6 +22,7 @@ declare global {
 
     interface Window {
         styles: Record<string, string>
+        token: string
     }
 }
 export {}
