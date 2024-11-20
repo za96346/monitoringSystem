@@ -30,6 +30,9 @@ declare namespace AppService {
         EntryApp: EntryApp
         DeviceApp: DeviceApp
         DeviceDataApp: DeviceDataApp
+        /**
+         * @todo step 3 加上 UserApp, 類型為底下你定義的介面
+        */
     }
 
     /**
@@ -95,4 +98,14 @@ declare namespace AppService {
         */
         async add(deviceEntity: DeviceEntity): Promise<DeviceEntity>
     }
+
+    /**
+     * @todo step 1. 加上 使用者的介面
+     * interface 介面描述
+     * 需要有以下功能 ( 為非同步，需加上async, 回傳需加上 Promise<MyReturType> 泛型 )
+     *      新增 (input: userEntity, output: userEntity)
+     *      刪除 (input: userEntity, output: boolean)
+     *      修改 (input: userEntity, output: userEntity)
+     *      查詢 (input: userEntity, output: userEntity[])
+    */
 }
