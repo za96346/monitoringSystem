@@ -33,6 +33,7 @@ declare namespace AppService {
         /**
          * @todo step 3 加上 UserApp, 類型為底下你定義的介面
         */
+        UserApp: UserApp
     }
 
     /**
@@ -89,7 +90,7 @@ declare namespace AppService {
          * 
          * @returns 是否更新成功
         */
-        async update(eviceEntity: DeviceEntity): Promise<DeviceEntity>
+        async update(deviceEntity: DeviceEntity): Promise<DeviceEntity>
 
         /**
          * @description 新增裝置
@@ -108,4 +109,15 @@ declare namespace AppService {
      *      修改 (input: userEntity, output: userEntity)
      *      查詢 (input: userEntity, output: userEntity[])
     */
+    interface UserApp{
+
+        async add(userEntity: UserEntity): Promise<UserEntity>
+
+        async delete(userEntity: UserEntity): Promise<boolean>
+
+        async update(userEntity: UserEntity): Promise<UserEntity>
+
+        async get(userEntity: UserEntity): Promise<UserEntity[]>
+
+    }
 }
