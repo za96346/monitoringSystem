@@ -45,10 +45,14 @@ const appServiceInstance = {
         userRepo: presistence.User,
         userDomainService: new UserDomainService(),
         jwtSecretKey: process.env.JWT_SECRET_KEY
-    })
+    }),
     /**
      * @todo step 4. 加上 UserApp, 實例化 你在 appService/UserApp.ts 所實現的類別
     */
+    UserApp: new UserApp({
+        userRepo: presistence.User,
+        userDomainService: new UserDomainService()
+    })
 }
 
 ApiServer({
