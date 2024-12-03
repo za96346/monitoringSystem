@@ -33,6 +33,9 @@ const index = ({
     const deviceDataController = new DeviceDataController({
         deviceDataApp: appService.DeviceDataApp
     })
+    /**
+     * @todo step 3 實例UserController, 並注入所需物件
+    */
 
     const app = express();
 
@@ -85,6 +88,10 @@ const index = ({
         ],
         deviceController.delete.bind(deviceController)
     );
+
+    /**
+     * @todo step 4 新增 userRoute
+    */
 
     // 裝置資料
     app.post(
