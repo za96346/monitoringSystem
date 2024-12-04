@@ -7,9 +7,6 @@ char ssid[] = "CJF";
 char password[] = "19991206";
 String token = "";
 
-// ThingSpeak API URL
-String url = "https://monitor.workapp.tw/backendApi/entry/login";
-
 // DHT11 引腳
 int pinDHT11 = 23;
 
@@ -27,26 +24,39 @@ void setup() {
     delay(1000);
   }
   Serial.println("\n連線完成");
+
     HTTPClient http;
   String loginUrl = "https://monitor.workapp.tw/backendApi/entry/login";
   String loginPayload = "{\"account\":\"siou\",\"password\":\"12345\"}";
-  String token = ""
+
   Serial.println("開始執行登錄請求...");
   http.begin(loginUrl);
   http.addHeader("Content-Type", "application/json");
 
   int httpCode = http.POST(loginPayload);
   if (httpCode == HTTP_CODE_OK) {
-    // login response json string to c ( structure or  ) parse
-    String token = http.getString();
+    String response = http.getString();
     Serial.print("登錄成功，回應內容: ");
+    Serial.println(response);
+
+    // 使用 JSON 函式庫解析回應
+    StaticJsonDocument<200> doc;
+    DeserializationError error = deserializeJson(doc, response);
+
+    if (error) {
+      Serial.print("JSON 解析失敗: ");
+      Serial.println(error.c_str());
+      return;
+    }
+
+    token = doc["token"]; // 提取 token
+    Serial.print("提取的 Token: ");
     Serial.println(token);
   } else {
     Serial.print("登錄失敗，HTTP 回應碼: ");
     Serial.println(httpCode);
   }
   http.end();
-  
   // @todo login preprocess.
   
 }
@@ -93,6 +103,6 @@ void loop() {
   http.end();
 
   // 休息 20 秒
-  
+
   delay(20000);
 }
