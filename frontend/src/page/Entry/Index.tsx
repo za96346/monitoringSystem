@@ -2,6 +2,7 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons"
 import { Button, Form, Input } from "antd"
 import * as React from "react"
 import { useNavigate } from "react-router-dom"
+import "./index.scss"
 
 const Index = ({ userApi }: { userApi: Api.User }) => {
     const navigate = useNavigate()
@@ -43,7 +44,7 @@ const Index = ({ userApi }: { userApi: Api.User }) => {
                 />
             </Form.Item>
             <Form.Item >
-                <Button htmlType="submit">
+                <Button htmlType="submit" className="glow-on-hover">
                         登入
                 </Button>
             </Form.Item>
