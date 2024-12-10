@@ -112,7 +112,7 @@ void deviceTemperature() {
     // 呼叫上傳資料函數
     uploadData(deviceId, payloadData);
 
-    // 延遲 20 秒
+    // 延遲 3 秒
     delay(3000);
 }
 
