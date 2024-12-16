@@ -31,7 +31,7 @@ class EntryApp implements AppService.EntryApp {
         if (Object.keys(dbResult || {})?.length === 0) return null
 
         if (
-            userEntity.accout === dbResult?.accout
+            userEntity.account === dbResult?.accout
             && userEntity.password === dbResult?.password
         ) {
             const payload = { id: dbResult.id };

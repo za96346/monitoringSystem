@@ -59,6 +59,8 @@ class User extends BaseController{
         const validateResult = this.hasBodyData<UserEntity>(req, res)
         if (!validateResult.isPass) return
 
+        console.log(validateResult.body)
+
         const appResult = await this.userApp.add(validateResult.body)
 
         res.json({

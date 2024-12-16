@@ -7,7 +7,7 @@ class UserDomainService implements domainService.UserDomainService {
         return new UserEntity({
             id: userPo?.id,
             userName: userPo?.user_name || "",
-            accout: userPo?.accout || "",
+            account: userPo?.accout || "",
             password: userPo?.password || "",
             sort: userPo?.sort || 0,
             isDeleted: userPo?.is_deleted || 0,
@@ -19,7 +19,7 @@ class UserDomainService implements domainService.UserDomainService {
         const userPo = new UserPo()
         userPo.id = user.id
         userPo.user_name = user?.userName || ""
-        userPo.accout = user?.accout || ""
+        userPo.accout = user?.account || ""
         userPo.password = user?.password || ""
         userPo.sort = user?.sort || 0
         userPo.is_deleted = user?.isDeleted || 0

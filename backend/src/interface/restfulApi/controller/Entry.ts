@@ -22,7 +22,7 @@ class Entry extends BaseController {
         if (!validateResult.isPass) return
         
         const result = await this.entryApp.login(new UserEntity({
-            accout: validateResult.body?.account,
+            account: validateResult.body?.account,
             password: validateResult.body.password
         }))
 

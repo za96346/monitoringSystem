@@ -96,8 +96,7 @@ const index = ({
 
     /**
      * @todo step 4 新增 userRoute
-    */
-    app.get('/backendApi/user', authenticateToken, userController.get.bind(userController));
+    */app.get('/backendApi/user', authenticateToken, userController.get.bind(userController));
     app.put(
         '/backendApi/user',
         authenticateToken,

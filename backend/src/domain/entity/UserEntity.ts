@@ -1,7 +1,7 @@
 class UserEntity {
     id: number;
     userName: string;
-    accout: string;
+    account: string;
     password: string;
     sort: number;
     isDeleted: number
@@ -11,7 +11,7 @@ class UserEntity {
     constructor({
         id,
         userName,
-        accout,
+        account,
         password,
         sort,
         isDeleted,
@@ -20,7 +20,7 @@ class UserEntity {
     }: {
         id?: number
         userName?: string
-        accout: string
+        account: string
         password: string
         sort?: number
         isDeleted?: number
@@ -30,7 +30,7 @@ class UserEntity {
     }) {
         this.id = id
         this.userName = userName
-        this.accout = accout
+        this.account = account
         this.password = password
         this.sort = sort
         this.isDeleted = isDeleted
