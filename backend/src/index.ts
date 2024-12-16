@@ -10,6 +10,7 @@ import EntryApp from "./appService/EntryApp"
 /**
  * @todo step 1. 修正bug，需引入userApp
 */
+import UserApp from 'appService/UserApp';
 
 // 基礎設施層
 import Presistence from "./infrastructure/presistence/index"
