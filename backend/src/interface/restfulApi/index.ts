@@ -8,6 +8,8 @@ import DeviceController from './controller/Device';
 import DeviceDataController from './controller/DeviceData';
 import { AppService } from 'types/AppService';
 
+import UserController from './controller/User';
+
 // middleware
 import AuthenticateToken from './middleware/AuthenticateToken';
 
