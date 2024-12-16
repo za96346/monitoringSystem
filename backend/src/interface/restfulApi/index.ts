@@ -8,6 +8,8 @@ import DeviceController from './controller/Device';
 import DeviceDataController from './controller/DeviceData';
 import { AppService } from 'types/AppService';
 
+import UserController from './controller/User';
+
 // middleware
 import AuthenticateToken from './middleware/AuthenticateToken';
 
@@ -36,6 +38,9 @@ const index = ({
     /**
      * @todo step 3 實例UserController, 並注入所需物件
     */
+    const userController = new UserController({
+        userApp: appService.UserApp
+    })
 
     const app = express();
 
@@ -92,6 +97,34 @@ const index = ({
     /**
      * @todo step 4 新增 userRoute
     */
+    app.get('/backendApi/user', authenticateToken, userController.get.bind(userController));
+    app.put(
+        '/backendApi/user',
+        authenticateToken,
+        [
+            body('userName').isString().withMessage('Name 必須是字串'),
+            body('sort').isInt({ min: 0 }).withMessage('sort 必須是正整數'),
+        ],
+        userController.add.bind(userController)
+    );
+    app.post(
+        '/backendApi/user',
+        authenticateToken,
+        [
+            body('id').isInt({ min: 0 }).withMessage('id 必須是正整數'),
+            body('userName').isString().withMessage('Name 必須是字串'),
+            body('sort').isInt({ min: 0 }).withMessage('sort 必須是正整數'),
+        ],
+        userController.update.bind(userController)
+    );
+    app.delete(
+        '/backendApi/user',
+        authenticateToken,
+        [
+            body('id').isInt({ min: 1 }).withMessage('id 必須是正整數'),
+        ],
+        userController.delete.bind(userController)
+    );
 
     // 裝置資料
     app.post(
