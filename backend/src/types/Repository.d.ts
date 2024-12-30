@@ -38,7 +38,11 @@ declare namespace Repository {
      * @description 裝置資料repo
     */
     interface DeviceData {
-        async getDeviceDatasByDeviceIds(deviceIds: number[]):Promise<DeviceDataPo[]>
+        async getDeviceDatasByDeviceIdsCreateTime(
+            deviceIds: number[],
+            createTime: Date,
+            endTime: Date
+        ):Promise<DeviceDataPo[]>
         async add(deviceData: DeviceDataPo): Promise<DeviceDataPo>
         async delete(deviceData: DeviceDataPo): Promise<boolean>
     }

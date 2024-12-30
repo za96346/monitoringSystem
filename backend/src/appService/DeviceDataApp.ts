@@ -18,8 +18,12 @@ class DeviceDataApp implements AppService.DeviceDataApp {
         this.deviceDataDomainService = deviceDataDomainService
     }
 
-    async getDeviceDatasByDeviceIds(params: AppServiceParams.DeviceDataApp["getDeviceDatasByDeviceIds"]): Promise<DeviceDataEntity[]> {
-        const deviceDatas = await this.deviceDataRepo.getDeviceDatasByDeviceIds(params)
+    async getDeviceDatasByDeviceIdsCreateTime(params: AppServiceParams.DeviceDataApp["getDeviceDatasByDeviceIdsCreateTime"]): Promise<DeviceDataEntity[]> {
+        const deviceDatas = await this.deviceDataRepo.getDeviceDatasByDeviceIdsCreateTime(
+            params.deviceIds,
+            params.startTime,
+            params.endTime
+        )
         return deviceDatas.map((item) => this.deviceDataDomainService.toDomainEntity(item))
     }
 

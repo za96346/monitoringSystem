@@ -2,6 +2,7 @@ import { AppService } from 'types/AppService';
 import { Repository } from 'types/Repository';
 import { WebSocketServer } from 'ws';
 import { parse } from 'url';
+import DeviceDataEntity from '../../domain/entity/DeviceDataEntity';
 
 const index = ({
     ip,
@@ -35,10 +36,28 @@ const index = ({
         console.log('Client connected with params:', queryParams);
 
         const interval = setInterval(async() => {
-            const deviceDatas = await appService.DeviceDataApp.getDeviceDatasByDeviceIds(deviceIds)
+            const thirtySecondsBeforeTime = new Date()
+            thirtySecondsBeforeTime.setSeconds(thirtySecondsBeforeTime.getSeconds() - 30)
+            const now = new Date()
+
+            const deviceDatas = await appService.DeviceDataApp.getDeviceDatasByDeviceIdsCreateTime({
+                deviceIds,
+                startTime: thirtySecondsBeforeTime,
+                endTime: now
+            })
             const deviceDataslength = (deviceDatas ?? []).length || 0
+
+            // 依據裝置id整理資料
+            const okData = deviceDatas.reduce((prev, curr) => {
+                prev[curr.deviceId] = [
+                    ...(prev?.[curr.deviceId] ?? []),
+                    curr
+                ]
+                return prev
+            }, {} as Record<number, DeviceDataEntity[]>)
+
             if (previousDataLength !== deviceDataslength) {
-                ws.send(JSON.stringify(deviceDatas))
+                ws.send(JSON.stringify(okData))
                 previousDataLength = deviceDataslength
             }
         }, 100);

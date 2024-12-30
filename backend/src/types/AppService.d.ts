@@ -18,7 +18,11 @@ declare namespace AppServiceParams {
         addParams: {}
     }
     interface DeviceDataApp {
-        getDeviceDatasByDeviceIds: number[]
+        getDeviceDatasByDeviceIdsCreateTime: {
+            deviceIds: number[]
+            startTime: Date
+            endTime: Date
+        }
     }
 }
 
@@ -49,7 +53,7 @@ declare namespace AppService {
          * 
          * @returns
         */
-       async getDeviceDatasByDeviceIds(param: AppServiceParams.DeviceDataApp["getDeviceDatasByDeviceIds"]): Promise<DeviceDataEntity[]>
+       async getDeviceDatasByDeviceIdsCreateTime(param: AppServiceParams.DeviceDataApp["getDeviceDatasByDeviceIdsCreateTime"]): Promise<DeviceDataEntity[]>
    }
 
     /**

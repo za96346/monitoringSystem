@@ -1,7 +1,7 @@
 import DeviceDataPo from "../../domain/po/DeviceDataPo";
 import { Repository } from "types/Repository";
 
-import { DataSource, Repository as TypeORMRepository, In } from "typeorm";
+import { DataSource, Repository as TypeORMRepository, In, MoreThan, Between } from "typeorm";
 import { AppServiceParams } from "types/AppService";
 
 
@@ -12,11 +12,17 @@ class DeviceDataRepo implements Repository.DeviceData {
         this.ormRepository = dataSource.getRepository(DeviceDataPo);
     }
 
-    async getDeviceDatasByDeviceIds(params: AppServiceParams.DeviceDataApp["getDeviceDatasByDeviceIds"]): Promise<DeviceDataPo[]> {
+    async getDeviceDatasByDeviceIdsCreateTime(
+        deviceIds: number[],
+        startTime: Date,
+        endTime: Date
+    ): Promise<DeviceDataPo[]> {
         return await this.ormRepository.find({
             where: {
-                device_id: In(params)
-            }
+                device_id: In(deviceIds),
+                create_time: Between(startTime, endTime),
+            },
+            take: 30
         });
     }
 
