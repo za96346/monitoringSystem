@@ -26,7 +26,7 @@ const RouteIndex = (): JSX.Element => {
         <Router>
             <Routes>
                 <Route path='/' element={<Layout />}>
-                    <Route path='/dataMonitor' element={<DataMonitor />} />
+                    <Route path='/dataMonitor' element={<DataMonitor deviceApi={deviceApi} />} />
                     <Route path='/deviceManage' element={<DeviceManage deviceApi={deviceApi} />} />
                     <Route path='/entry/login' element={<Entry userApi={userApi} />} />
                 </Route>
