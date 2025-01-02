@@ -9,9 +9,6 @@ char password[] = "siou0722";
 String token = "";
 HTTPClient http;
 
-TaskHandle_t Task1;
-TaskHandle_t Task2;
-
 // 函數：Wi-Fi 連線
 void connectWiFi() {
     Serial.print("開始連線到無線網路SSID: ");
@@ -115,24 +112,8 @@ void deviceTemperature() {
     // 構建 JSON 資料作為 payload
     String payloadData = "{\"data\":{\"degree\":" + String(temperature) + ",\"humidity\":" + String(humidity) + "},\"deviceId\":" + String(deviceId) + "}";
 
-
-    TaskParams *params = pvPortMalloc(sizeof(TaskParams));
-
-    params->param1 = deviceId;
-    params->param2 = payloadData;
-
-    xTaskCreatePinnedToCore(
-        uploadData,   // 任務函數
-        "uploadDataDeviceTemperature", // 任務名稱
-        10000,              // 棧大小
-        params,               // 傳遞給任務的參數
-        1,                  // 優先級
-        &Task1,             // 任務句柄
-        1                   // 指定核心 0
-    );
-
-    // 延遲 3 秒
-    delay(3000);
+    // 呼叫上傳資料函數
+    uploadData(deviceId, payloadData);
 }
 
 void deviceUltrasound() {
@@ -157,23 +138,7 @@ void deviceUltrasound() {
 
     int deviceId = 9;
     String payloadData = "{\"data\":{\"distance\":" + String(CMValue) + "},\"deviceId\":" + String(deviceId) + "}";
-
-    TaskParams *params = pvPortMalloc(sizeof(TaskParams));
-
-    params->param1 = deviceId;
-    params->param2 = payloadData;
-
-    xTaskCreatePinnedToCore(
-        uploadData,   // 任務函數
-        "uploadDataDeviceUltrasound", // 任務名稱
-        10000,              // 棧大小
-        params,               // 傳遞給任務的參數
-        1,                  // 優先級
-        &Task1,             // 任務句柄
-        1                   // 指定核心 0
-    );
-
-    delay(3000);
+    uploadData(deviceId, payloadData);
 }
 
 void setup() {
@@ -191,4 +156,5 @@ void loop() {
     deviceTemperature();
     // 定時上傳超音波距離資料
     deviceUltrasound();
+    delay(1000);
 }
