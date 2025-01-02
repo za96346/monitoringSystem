@@ -3,14 +3,10 @@
 #include <SimpleDHT.h>
 #include <ArduinoJson.h>
 
-
 // Wi-Fi 參數
-char ssid[] = "NUTC_BM";
-char password[] = "31046270";
+char ssid[] = "SIOU";
+char password[] = "siou0722";
 String token = "";
-//宣告任務Task1 2
-TaskHandle_t Task1;
-TaskHandle_t Task2;
 HTTPClient http;
 
 // 函數：Wi-Fi 連線
@@ -84,71 +80,67 @@ void uploadData(int deviceId, String payloadData) {
 }
 
 // 函數：處理溫濕度裝置資料
-void TaskTemperature(void *pvParameters) {
+void deviceTemperature() {
     // 宣告 DHT11 感測器腳位
     int pinDHT11 = 23;
     SimpleDHT11 dht11(pinDHT11);
 
     // 讀取 DHT11 溫濕度資料
-    while (true) {
-        byte temperature = 0;
-        byte humidity = 0;
-        int err = SimpleDHTErrSuccess;
-    
-        if ((err = dht11.read(&temperature, &humidity, NULL)) != SimpleDHTErrSuccess) {
-            Serial.print("溫濕度讀取失敗，錯誤碼 = ");
-            Serial.println(err);
-            delay(1000);
-            continue;
-        }
+    byte temperature = 0;
+    byte humidity = 0;
+    int err = SimpleDHTErrSuccess;
 
-        Serial.print("溫濕度讀取成功: ");
-        Serial.print((int)temperature);
-        Serial.print(" *C, ");
-        Serial.print((int)humidity);
-        Serial.println(" H");
-    
-        // 宣告並定義裝置 ID
-        int deviceId = 1;
-
-        // 構建 JSON 資料作為 payload
-        String payloadData = "{\"data\":{\"degree\":" + String(temperature) + ",\"humidity\":" + String(humidity) + "},\"deviceId\":" + String(deviceId) + "}";
-    
-        // 呼叫上傳資料函數
-        uploadData(deviceId, payloadData);
-    
-        // 延遲 3 秒
-        vTaskDelay(3000 / portTICK_PERIOD_MS);
+    if ((err = dht11.read(&temperature, &humidity, NULL)) != SimpleDHTErrSuccess) {
+        Serial.print("溫濕度讀取失敗，錯誤碼 = ");
+        Serial.println(err);
+        delay(1000);
+        return;
     }
+
+    Serial.print("溫濕度讀取成功: ");
+    Serial.print((int)temperature);
+    Serial.print(" *C, ");
+    Serial.print((int)humidity);
+    Serial.println(" H");
+
+    // 宣告並定義裝置 ID
+    int deviceId = 1;
+
+    // 構建 JSON 資料作為 payload
+    String payloadData = "{\"data\":{\"degree\":" + String(temperature) + ",\"humidity\":" + String(humidity) + "},\"deviceId\":" + String(deviceId) + "}";
+
+    // 呼叫上傳資料函數
+    uploadData(deviceId, payloadData);
+
+    // 延遲 3 秒
+    delay(3000);
 }
 
-void TaskUltrasound(void *pvParameters) {
+void deviceUltrasound() {
     int Trig = 12; // 發出聲波腳位
     int Echo = 14; // 接收聲波腳位
 
     pinMode(Trig, OUTPUT);
     pinMode(Echo, INPUT);
 
-    while(true){
-        digitalWrite(Trig, LOW); // 先關閉
-        delayMicroseconds(5);
-        digitalWrite(Trig, HIGH); // 啟動超音波
-        delayMicroseconds(10);
-        digitalWrite(Trig, LOW); // 關閉
-    
-        float EchoTime = pulseIn(Echo, HIGH); // 計算傳回時間
-        float CMValue = EchoTime / 29.4 / 2;  // 將時間轉換成距離
-    
-        Serial.print("超音波測距成功: ");
-        Serial.print(CMValue);
-        Serial.println(" cm");
-    
-        int deviceId = 9;
-        String payloadData = "{\"data\":{\"distance\":" + String(CMValue) + "},\"deviceId\":" + String(deviceId) + "}";
-        uploadData(deviceId, payloadData);
+    digitalWrite(Trig, LOW); // 先關閉
+    delayMicroseconds(5);
+    digitalWrite(Trig, HIGH); // 啟動超音波
+    delayMicroseconds(10);
+    digitalWrite(Trig, LOW); // 關閉
 
-        vTaskDelay(3000 / portTICK_PERIOD_MS);
-    }
+    float EchoTime = pulseIn(Echo, HIGH); // 計算傳回時間
+    float CMValue = EchoTime / 29.4 / 2;  // 將時間轉換成距離
+
+    Serial.print("超音波測距成功: ");
+    Serial.print(CMValue);
+    Serial.println(" cm");
+
+    int deviceId = 9;
+    String payloadData = "{\"data\":{\"distance\":" + String(CMValue) + "},\"deviceId\":" + String(deviceId) + "}";
+    uploadData(deviceId, payloadData);
+
+    delay(3000);
 }
 
 void setup() {
@@ -159,28 +151,11 @@ void setup() {
 
     // 登錄並取得 Token
     loginAndGetToken();
-    
-    xTaskCreatePinnedToCore(
-        TaskTemperature,   // 任務函數
-        "TaskTemperature", // 任務名稱
-        10000,              // 棧大小
-        NULL,               // 傳遞給任務的參數
-        1,                  // 優先級
-        &Task1,             // 任務句柄
-        0                   // 指定核心 0
-    );
-
-    xTaskCreatePinnedToCore(
-        TaskUltrasound,    // 任務函數
-        "TaskUltrasound", // 任務名稱
-        10000,             // 棧大小
-        NULL,              // 傳遞給任務的參數
-        1,                 // 優先級
-        &Task2,            // 任務句柄
-        1                  // 指定核心 1
-    );
 }
 
 void loop() {
-    // 主循環保持空閒，任務在各自的核心上執行
+    // 定時上傳溫濕度資料
+    deviceTemperature();
+    // 定時上傳超音波距離資料
+    deviceUltrasound();
 }
