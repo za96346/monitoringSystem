@@ -243,11 +243,6 @@ section .color:nth-child(3) {
     top: 0;
     border-radius: 10px;
 }
-@keyframes glowing {
-    0% { background-position: 0 0; }
-    50% { background-position: 400% 0; }
-    100% { background-position: 0 0; }
-}
 #root {
     width: 100vw;
     height: 100vh;
