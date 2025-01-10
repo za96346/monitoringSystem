@@ -7,7 +7,8 @@ class User extends apiAbstract implements Api.User {
     async login(params: ApiParams.User["login"]): Promise<string> {
         return this.POST<string>({
             url: "/entry/login",
-            data: params
+            data: params,
+            title: "是否登入",
         }).then((token) => {
             localStorage.setItem("token", token)
             return token

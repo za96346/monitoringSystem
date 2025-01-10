@@ -26,6 +26,14 @@ class Entry extends BaseController {
             password: validateResult.body.password
         }))
 
+        if (!result) {
+            res.statusCode = 401
+            res.json({
+                errorMessage: "登入失敗",
+                data: null
+            })
+        }
+
         res.json({
             errorMessage: "",
             data: result
