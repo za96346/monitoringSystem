@@ -11,7 +11,7 @@ import {
     ChartData,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { Divider, Select, SelectProps } from 'antd';
+import { Divider, Form, Select, SelectProps } from 'antd';
 import useDeviceData from './useDeviceData';
 
 ChartJS.register(
@@ -53,16 +53,20 @@ const Index = ({ deviceApi }: { deviceApi: Api.Device }) => {
     }, [])
     return (
         <>
-            <Select
-                className='w-100'
-                options={devices}
-                mode="multiple"
-                onChange={(v) => {
-                    setSelectedDevices(v)
-                    startConnection(v)
-                }}
-            >
-            </Select>
+            <Form>
+                <Form.Item label="選擇裝置">
+                    <Select
+                        className='w-100'
+                        options={devices}
+                        mode="multiple"
+                        onChange={(v) => {
+                            setSelectedDevices(v)
+                            startConnection(v)
+                        }}
+                    >
+                    </Select>
+                </Form.Item>
+            </Form>
 
             <Divider />
             <div className='row'>
