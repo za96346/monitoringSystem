@@ -47,7 +47,8 @@ const Layout = (): JSX.Element => {
                 <Menu
                     onClick={(v) => {
                         if (v?.key === 'logout') {
-                            navigate('entry/login')
+                            localStorage.clear()
+                            navigate('entry/login', { replace: true })
                         } else {
                             navigate(v?.key)
                         }

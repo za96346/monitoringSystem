@@ -74,7 +74,7 @@ instance.interceptors.response.use(
     async (error) => {
         void showErrorDialog(error)
 
-        if (error.response.status === 511) {
+        if (error.response.status === 401) {
             window.location.href = '/entry/login'
         }
 
