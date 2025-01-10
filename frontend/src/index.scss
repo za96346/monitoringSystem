@@ -62,6 +62,12 @@ section .color:nth-child(3) {
     border-radius: 10px;
     animation: animate 10s linear infinite;
     animation-delay: calc(-1s * var(--i));
+    &:hover{
+        cursor: pointer;
+        transition: 1s;
+        scale: 1.1;
+        box-shadow: 10px 10px 30px white;
+    }
 }
 
 @keyframes animate {
@@ -155,6 +161,12 @@ section .color:nth-child(3) {
 .form .inputBox {
     width: 100%;
     margin-top: 20px;
+    input:hover{
+        cursor: pointer;
+        scale: 1.05;
+        transition: 0.5s;
+        box-shadow: 3px 3px 30px white;
+    }
 }
 
 .form .inputBox input {

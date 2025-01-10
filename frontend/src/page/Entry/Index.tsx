@@ -50,7 +50,7 @@ const Index = ({ userApi }: { userApi: Api.User }) => {
                             </div>
 
                             
-                                <Form.Item>
+                                <Form.Item className="w-100 d-flex justify-content-center">
                                     <Button htmlType="submit"  className="glow-on-hover">登入</Button>
                                 </Form.Item>
                             
