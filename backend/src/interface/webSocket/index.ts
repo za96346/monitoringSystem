@@ -56,8 +56,8 @@ const index = ({
                 return prev
             }, {} as Record<number, DeviceDataEntity[]>)
 
+            ws.send(JSON.stringify(okData))
             if (previousDataLength !== deviceDataslength) {
-                ws.send(JSON.stringify(okData))
                 previousDataLength = deviceDataslength
             }
         }, 100);
